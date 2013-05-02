@@ -7,12 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,6 +42,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 	private Button mButtonToImporting            = null;
 	private Button mButtonFinishSetting          = null;
 	private ImageButton mImageButtonStartSetting = null;
+	private SeekBar mSeekBar                     = null;
 	
 	// 表示されている画像
 	private DraftImageView mImageView = null;
@@ -56,11 +60,12 @@ public class DrawingActivity extends Activity implements AnimationListener {
 	 * ウィジェットを変数とつないで、ボタンのコールバック設定
 	 */
 	private void createWidgets(){
-		mButtonToImporting = (Button)findViewById(R.id.buttonDrawingToImporting);
+		mButtonToImporting       = (Button)findViewById(R.id.buttonDrawingToImporting);
 		mImageButtonStartSetting = (ImageButton)findViewById(R.id.imageButtonDrawingStartSetting);
-		mButtonFinishSetting = (Button)findViewById(R.id.buttonDrawingFinishSetting);
-		mSettingLayout = (LinearLayout)findViewById(R.id.linearLayoutDrawingSettings);
-		mImageView = (DraftImageView)findViewById(R.id.imageViewDrawing);
+		mButtonFinishSetting     = (Button)findViewById(R.id.buttonDrawingFinishSetting);
+		mSettingLayout           = (LinearLayout)findViewById(R.id.linearLayoutDrawingSettings);
+		mImageView               = (DraftImageView)findViewById(R.id.imageViewDrawing);
+		mSeekBar                 = (SeekBar)findViewById(R.id.seekBarDrawing);
 		
 		// ImportingActivityに移動
 		mButtonToImporting.setOnClickListener(new OnClickListener() {			
@@ -86,6 +91,32 @@ public class DrawingActivity extends Activity implements AnimationListener {
 				showSettings(false);
 			}
 		});
+		
+		// シークバーで明るさ調整
+		mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// nothing to do.
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// nothing to do.
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				WindowManager.LayoutParams lp = getWindow().getAttributes();
+				lp.screenBrightness = (float)progress / mSeekBar.getMax();
+				getWindow().setAttributes(lp);
+			}
+		});
+		
+		// シークバーに現在の明るさを入力
+		WindowManager.LayoutParams lp = getWindow().getAttributes();
+		mSeekBar.setProgress(Math.round(lp.screenBrightness * mSeekBar.getMax()));
 	}
 	
 	/**
