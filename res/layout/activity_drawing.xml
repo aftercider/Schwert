@@ -1,24 +1,53 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/imageViewDrawing"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:src="@drawable/ic_launcher" />
 
-        <ImageView
-            android:id="@+id/imageViewDrawing"
+    <ImageButton
+        android:id="@+id/imageButtonDrawingStartSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDrawingSettings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical" >
+
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:src="@drawable/ic_launcher" />
-
-        <ImageButton
-            android:id="@+id/imageButtonDrawingToSetting"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:layout_weight="1" >
 
-    </FrameLayout>
+            <Button
+                android:id="@+id/buttonDrawingToImporting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Import" />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/buttonDrawingFinishSetting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Apply Settings" />
+
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</FrameLayout>
