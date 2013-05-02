@@ -1,7 +1,8 @@
 package com.aftercider.schwert;
 
-import java.util.MissingResourceException;
-
+import java.io.IOException;
+import java.io.InputStream;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,18 +11,37 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+/**
+ * お絵かきできるように、選択した画像を表示する。
+ * 左上or右上のボタンを押すと設定パネルが表示され、明るさの調整や、画像の指定アクティビティを起動できる。
+ * また、パネルが表示されると画像はスクロール・ズームができるようになる。
+ * 
+ * @author Kentaro
+ *
+ */
 public class DrawingActivity extends Activity implements AnimationListener {
 
-	private boolean mIsShownSettings = false;
-	private LinearLayout mSettingLayout = null;
+	// ImportingActivityのリクエストコード
+	public static int REQUEST_IMPORT = 1;
 	
-	private Button mButtonToImporting = null;
+	// 設定パネルの表示状態
+	private boolean mIsShownSettings = false;
+	
+	// 設定パネル
+	private LinearLayout mSettingLayout          = null;
+	private Button mButtonToImporting            = null;
+	private Button mButtonFinishSetting          = null;
 	private ImageButton mImageButtonStartSetting = null;
-	private Button mButtonFinishSetting = null;
+	
+	// 表示されている画像
+	private ImageView mImageView = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +52,15 @@ public class DrawingActivity extends Activity implements AnimationListener {
 		mSettingLayout.setVisibility(LinearLayout.INVISIBLE);
 	}
 	
+	/**
+	 * ウィジェットを変数とつないで、ボタンのコールバック設定
+	 */
 	private void createWidgets(){
 		mButtonToImporting = (Button)findViewById(R.id.buttonDrawingToImporting);
 		mImageButtonStartSetting = (ImageButton)findViewById(R.id.imageButtonDrawingStartSetting);
 		mButtonFinishSetting = (Button)findViewById(R.id.buttonDrawingFinishSetting);
 		mSettingLayout = (LinearLayout)findViewById(R.id.linearLayoutDrawingSettings);
+		mImageView = (ImageView)findViewById(R.id.imageViewDrawing);
 		
 		// ImportingActivityに移動
 		mButtonToImporting.setOnClickListener(new OnClickListener() {			
@@ -44,7 +68,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				intent.setClassName("com.aftercider.schwert","com.aftercider.schwert.ImportingActivity");
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_IMPORT);
 			}
 		});
 		
@@ -127,5 +151,34 @@ public class DrawingActivity extends Activity implements AnimationListener {
 	public void onAnimationStart(Animation animation) {
 		// Nothing to do.
 		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		if(requestCode == REQUEST_IMPORT && resultCode == RESULT_OK){
+			// 画像を読み込む
+			Bitmap image = loadImage(data.getData());
+			if(image != null){
+				mImageView.setImageBitmap(image);
+				return;
+			}else{
+				return;
+			}
+		}
+	}
+	
+	/**
+	 * 指定されたパスの画像を読み込み、Bitmapを返す
+	 * @param uri 読み込む画像のパス
+	 */
+	private Bitmap loadImage(Uri uri){
+		 try {
+             InputStream iStream = getContentResolver().openInputStream(uri);
+             Bitmap bm = BitmapFactory.decodeStream(iStream);
+             iStream.close();
+             return bm;
+         }catch (IOException e) {
+        	 return null;
+         }
 	}
 }
