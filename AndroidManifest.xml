@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="9" />
+        android:targetSdkVersion="7" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.aftercider.schwert.ImageActivity"
+            android:name="com.aftercider.schwert.HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="ConfigActivity"></activity>
+        <activity android:name="SettingActivity"></activity>
+        <activity android:name="ImportingActivity"></activity>
+        <activity android:name="DrawingActivity"></activity>
     </application>
 
 </manifest>
