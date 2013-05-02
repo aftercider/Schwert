@@ -12,7 +12,7 @@ import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
 public class ScaleImageView extends ImageView implements OnTouchListener {
-	private float MAX_SCALE = 2f;
+	private float MAX_SCALE = 10f;
 	private int DOUBLE_TAP_SECOND = 400;
 
 	private Matrix mMatrix;

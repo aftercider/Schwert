@@ -3,8 +3,6 @@ package com.aftercider.schwert;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.matabii.dev.scaleimageview.ScaleImageView;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.app.Activity;
 import android.content.Intent;
@@ -44,7 +41,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 	private ImageButton mImageButtonStartSetting = null;
 	
 	// 表示されている画像
-	private ScaleImageView mImageView = null;
+	private DraftImageView mImageView = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +60,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 		mImageButtonStartSetting = (ImageButton)findViewById(R.id.imageButtonDrawingStartSetting);
 		mButtonFinishSetting = (Button)findViewById(R.id.buttonDrawingFinishSetting);
 		mSettingLayout = (LinearLayout)findViewById(R.id.linearLayoutDrawingSettings);
-		mImageView = (ScaleImageView)findViewById(R.id.imageViewDrawing);
+		mImageView = (DraftImageView)findViewById(R.id.imageViewDrawing);
 		
 		// ImportingActivityに移動
 		mButtonToImporting.setOnClickListener(new OnClickListener() {			
@@ -102,6 +99,8 @@ public class DrawingActivity extends Activity implements AnimationListener {
 		}else{
 			mIsShownSettings = isShow;
 			
+			mImageView.setClickable(!mIsShownSettings);
+			
 			if(mIsShownSettings){
 				//いったん消して目的の位置に配置する
 				//コレをしないとアニメーションの画像が作れなくてアニメが真っ暗
@@ -110,7 +109,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 				
 				TranslateAnimation anim = new TranslateAnimation(0, 0, mSettingLayout.getHeight(), 0);
 														//ヨコ幅めいっぱいの位置から開始
-				anim.setDuration(500);					//500msecで移動し切る
+				anim.setDuration(300);					//500msecで移動し切る
 				anim.setFillAfter(false);				//終了後に消す
 				anim.setFillBefore(true);				//開始前に表示する
 				anim.setAnimationListener(this);		//リスター登録
@@ -122,7 +121,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 				//アニメーション
 				TranslateAnimation anim = new TranslateAnimation(0, 0, 0, mSettingLayout.getHeight());
 									//ヨコ幅めいっぱいの位置まで移動
-				anim.setDuration(500);			//500msecで移動し切る
+				anim.setDuration(300);			//500msecで移動し切る
 				anim.setFillAfter(false);		//終了後に消す
 				anim.setFillBefore(true);		//開始前に表示する
 				anim.setAnimationListener(this);	//リスター登録
@@ -147,13 +146,11 @@ public class DrawingActivity extends Activity implements AnimationListener {
 	@Override
 	public void onAnimationRepeat(Animation animation) {
 		// Nothing to do.
-		
 	}
 
 	@Override
 	public void onAnimationStart(Animation animation) {
 		// Nothing to do.
-		
 	}
 	
 	@Override
