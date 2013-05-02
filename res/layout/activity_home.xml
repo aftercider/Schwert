@@ -7,12 +7,12 @@
         android:id="@+id/buttonHomeToDrawing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="DrawingActivity" />
 
     <Button
         android:id="@+id/buttonHomeToConfig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="ConfigAcivity" />
 
 </LinearLayout>
