@@ -2,17 +2,18 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <ImageView
+    <com.matabii.dev.scaleimageview.ScaleImageView
         android:id="@+id/imageViewDrawing"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:scaleType="matrix" 
         android:src="@drawable/ic_launcher" />
 
     <ImageButton
         android:id="@+id/imageButtonDrawingStartSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutDrawingSettings"

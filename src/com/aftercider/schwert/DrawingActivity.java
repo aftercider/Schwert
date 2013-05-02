@@ -2,6 +2,9 @@ package com.aftercider.schwert;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import com.matabii.dev.scaleimageview.ScaleImageView;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +44,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 	private ImageButton mImageButtonStartSetting = null;
 	
 	// 表示されている画像
-	private ImageView mImageView = null;
+	private ScaleImageView mImageView = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class DrawingActivity extends Activity implements AnimationListener {
 		mImageButtonStartSetting = (ImageButton)findViewById(R.id.imageButtonDrawingStartSetting);
 		mButtonFinishSetting = (Button)findViewById(R.id.buttonDrawingFinishSetting);
 		mSettingLayout = (LinearLayout)findViewById(R.id.linearLayoutDrawingSettings);
-		mImageView = (ImageView)findViewById(R.id.imageViewDrawing);
+		mImageView = (ScaleImageView)findViewById(R.id.imageViewDrawing);
 		
 		// ImportingActivityに移動
 		mButtonToImporting.setOnClickListener(new OnClickListener() {			
