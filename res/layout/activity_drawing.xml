@@ -1,6 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-</LinearLayout>
+    <com.aftercider.schwert.DraftImageView
+        android:id="@+id/imageViewDrawing"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="matrix" 
+        android:src="@drawable/ic_launcher" />
+
+    <ImageButton
+        android:id="@+id/imageButtonDrawingStartSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDrawingSettings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/buttonDrawingToImporting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Import" />
+
+            <Button
+                android:id="@+id/buttonDrawingFinishSetting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Apply Settings" />
+
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekBarDrawing"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</FrameLayout>
